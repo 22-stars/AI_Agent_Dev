@@ -1,4 +1,3 @@
-from openai.resources.beta.threads import messages
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -37,21 +36,31 @@ print("3. Travel Guide")
 print("4. Motivational Coach")
 print("5. Interviewer")
 
-choice = input("\nEnter your choice : ")
+
+choice = input("\nEnter your choice or Press enter for default : ").strip()
+default_role = "You are a helpful polite, and versatile AI assistant"
+
+system_prompt = roles.get(choice, default_role)
+
+if choice not in roles:
+  print("\nUsing standart AI assistant")
 
 # Storing the conversation history
 msgs = [
   {
     "role": "system",
-    "content": "You are a Teacher. Explain the concepts in simple language with real life examples."
+    "content": system_prompt
   }
 ]
 
 while True:
-  user_input = input("\nYou: ")
+  user_input = input("\nYou: ").strip()
+
+  if not user_input:
+    continue
   
   # Breaking the loop if user enters exit or quit
-  if user_input.lower() == 'exit' or user_input.lower() == 'quit':
+  if user_input.lower() in ['exit' , 'quit']:
     print("\nGood Bye!")
     break
 
