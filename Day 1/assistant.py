@@ -16,8 +16,36 @@ print("=" * 20)
 print("AI ASSISTANT")
 print("=" * 20) 
 
+roles = {
+    "1": "You are a friendly school teacher. Explain every concept using simple language and real-life examples.",
+
+    "2": "You are a senior Python developer. Explain programming concepts clearly and always include Python examples.",
+
+    "3": "You are an experienced travel guide. Recommend places, food, transportation and travel tips.",
+
+    "4": "You are a motivational coach. Encourage the user and give practical advice with a positive attitude.",
+
+    "5": "You are a professional interviewer. Ask one interview question at a time and provide feedback after each answer."
+}
+
+
+print("\nChoose Your Assistant\n")
+
+print("1. Teacher")
+print("2. Python Expert")
+print("3. Travel Guide")
+print("4. Motivational Coach")
+print("5. Interviewer")
+
+choice = input("\nEnter your choice : ")
+
 # Storing the conversation history
-msgs = []
+msgs = [
+  {
+    "role": "system",
+    "content": "You are a Teacher. Explain the concepts in simple language with real life examples."
+  }
+]
 
 while True:
   user_input = input("\nYou: ")
@@ -50,7 +78,7 @@ while True:
     }
   )
 # For debugging
-  print("\n----------Conversation history-------------")
-  for msg in msgs:
-    print(f"{msg['role'].title()}: {msg['content']}\n")
-  print("---------------------")
+  # print("\n----------Conversation history-------------")
+  # for msg in msgs:
+  #   print(f"{msg['role'].title()}: {msg['content']}\n")
+  # print("---------------------")
