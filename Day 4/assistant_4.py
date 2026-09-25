@@ -1,6 +1,10 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from tools import (
+  get_current_time, roll_dice, generate_password
+)
+from tool_manager import execute_tool
 
 load_dotenv()
 
@@ -63,6 +67,13 @@ while True:
   if user_input.lower() in ['exit' , 'quit']:
     print("\nGood Bye!")
     break
+
+  #  Checking if the user wants to use a tool
+  tool_result = execute_tool(user_input)
+
+  if tool_result:
+    print(f"\nAI: {tool_result}")
+    continue
 
 # Saving user's message
   msgs.append(
