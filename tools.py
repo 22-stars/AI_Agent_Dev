@@ -16,5 +16,10 @@ def generate_password(length = 12):
     password += secrets.choice(characters)
   return password
 
-  
-
+def read_txt_file(filename):
+  try:
+    with open(filename,'r') as file:
+      content = file.read()
+    return content
+  except FileNotFoundError:
+    return f"File '{filename}' not found"

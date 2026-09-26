@@ -5,3 +5,7 @@ from tools import (
 print(get_current_time())
 print(roll_dice())
 print(generate_password())
+
+from tools import read_txt_file
+text = read_txt_file("Data/notes.txt")
+print(text)
