@@ -1,0 +1,1 @@
+Weather forcasting prdicts future weather conditions.
