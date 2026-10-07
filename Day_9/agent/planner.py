@@ -32,19 +32,23 @@ def planner(state, tools):
 
     tool_descriptions = build_tool_descriptions(tools)
 
+    actions_str = ", ".join(state["actions"]) if state["actions"] else "None"
+
+    observations_str = "\n".join([f"- {o['action']}: {o['observation']}" for o in state["observations"]]) if state["observations"] else "None"
+
     prompt = f"""
 You are an AI Planner.
 
-Your job is to decide ONLY the next action.
+Your job is to decide the next action OR return FINISH if the request is complete.
 
 User Request:
 {state["user_request"]}
 
 Completed Actions:
-{state["actions"]}
+{actions_str}
 
 Previous Observations:
-{state["observations"]}
+{observations_str}
 
 Available Tools:
 {tool_descriptions}
@@ -54,9 +58,10 @@ Rules:
 1. Choose only ONE next action.
 2. Never repeat an action that has already been completed.
 3. Use the observations to decide what is still required.
-4. If the user's request has been completely satisfied, return FINISH.
-5. Return ONLY the tool name or FINISH.
-6. Do not explain your answer.
+4. If all tools needed for the user's request are in Completed Actions, return FINISH.
+5. Do not select tools that are not related to the user's request.
+6. Return ONLY the tool name or FINISH.
+7. Do not explain your answer.
 
 Next Action:
 """
@@ -75,5 +80,5 @@ Next Action:
         ]
     )
 
-    return response.choices[0].message.content.strip()
+    return response.choices[0].message.content.strip().strip(".").strip()
 

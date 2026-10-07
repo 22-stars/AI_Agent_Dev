@@ -25,9 +25,12 @@ async def run_agent_loop(
 
         action = planner(state, tools)
 
+        if action in state["actions"]:
+            action = "FINISH"
+
         print("Planner Selected:", action)
 
-        if action == "FINISH":
+        if action.upper() == "FINISH":
 
             answer = format_answer(state)
 
@@ -58,5 +61,11 @@ async def run_agent_loop(
      
 
         next_step(state)
+
+    if not state["finished"]:
+
+        answer = format_answer(state)
+
+        finish(state, answer)
 
     return state
