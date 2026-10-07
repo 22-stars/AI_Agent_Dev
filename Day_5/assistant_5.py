@@ -128,7 +128,7 @@ while True:
 
   if text.startswith("read "):
     filename = user_input[5:].strip()
-    file_content = read_txt_file("Data/"+filename)
+    file_content = read_txt_file("../Data/"+filename)
 
     prompt = f"""
     You are now given the content of a document. Please acknowledge that
